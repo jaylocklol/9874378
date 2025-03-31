@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remembering Amy Winehouse | recfr.xyz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Playfair Display', serif;
+            color: #f8f8f8;
+        }
+        
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .video-background video {
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+        
+        .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .tribute-box {
+            background-color: rgba(10, 10, 10, 0.8);
+            border: 1px solid #555;
+            padding: 3rem 4rem;
+            border-radius: 2px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            margin: 0 20px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #e8e8e8;
+        }
+        
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+            margin-top: 1rem;
+            font-weight: 300;
+        }
+        
+        .divider {
+            width: 100px;
+            height: 1px;
+            background-color: #777;
+            margin: 1.5rem auto;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .tribute-box {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="https://d1iz662panu2fy.cloudfront.net/amy-winehouse/amywinehouse/AmyWinehouse_WebsiteHeader_Desktop.mp4" type="video/mp4">
+        </video>
+    </div>
+    
+    <div class="content">
+        <div class="tribute-box">
+            <h1>Welcome to recfr.xyz</h1>
+            <div class="divider"></div>
+            <p class="subtitle">Remembering Amy Winehouse, 1983 - 2011</p>
+        </div>
+    </div>
+
+    <script>
+        // Ensure video plays continuously and can't be paused
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('video');
+            
+            // Force play if paused (though autoplay should handle this)
+            video.play().catch(e => {
+                console.log("Autoplay prevented, trying to force play");
+                video.muted = true;
+                video.play();
+            });
+            
+            // Prevent pausing
+            video.addEventListener('pause', function() {
+                this.play();
+            });
+            
+            // Prevent context menu
+            video.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
