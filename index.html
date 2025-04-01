@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden;
+            overflow-x: hidden;
             font-family: 'Playfair Display', serif;
             color: #f8f8f8;
         }
@@ -81,7 +81,89 @@
             background-color: #777;
             margin: 1.5rem auto;
         }
-        
+
+        /* Navigation Styles */
+        .nav-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 2px;
+            background-color: #f8f8f8;
+            transition: all 0.3s ease;
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-left: 1px solid #555;
+            transition: right 0.3s ease;
+            padding: 80px 20px 20px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu.active {
+            right: 0;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu li {
+            margin-bottom: 15px;
+        }
+
+        .menu a {
+            color: #f8f8f8;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .menu a:hover {
+            color: #ccc;
+            border-bottom: 1px solid #777;
+        }
+
+        /* Hamburger animation */
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -94,6 +176,10 @@
             .tribute-box {
                 padding: 2rem;
             }
+
+            .menu {
+                width: 200px;
+            }
         }
     </style>
 </head>
@@ -102,6 +188,21 @@
         <video autoplay muted loop playsinline>
             <source src="https://d1iz662panu2fy.cloudfront.net/amy-winehouse/amywinehouse/AmyWinehouse_WebsiteHeader_Desktop.mp4" type="video/mp4">
         </video>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="hamburger" id="hamburger">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+        <div class="menu" id="menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/gallery">Gallery</a></li>
+            </ul>
+        </div>
     </div>
     
     <div class="content">
@@ -132,6 +233,24 @@
             // Prevent context menu
             video.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
+            });
+
+            // Hamburger menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const menu = document.getElementById('menu');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('active');
+                menu.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            const menuLinks = document.querySelectorAll('.menu a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    menu.classList.remove('active');
+                });
             });
         });
     </script>
