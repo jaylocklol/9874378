@@ -82,6 +82,42 @@
             margin: 1.5rem auto;
         }
 
+        /* Quote Carousel */
+        .quote-carousel {
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            font-size: 1rem;
+            margin: 1.5rem 0;
+            min-height: 60px;
+            position: relative;
+        }
+        .quote {
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .quote.active {
+            opacity: 1;
+        }
+
+        /* Social Links */
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .social-links a {
+            color: #aaa;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            color: #fff;
+        }
+
         /* Navigation Styles */
         .nav-container {
             position: fixed;
@@ -223,6 +259,18 @@
             <h1>Welcome to recfr.xyz</h1>
             <div class="divider"></div>
             <p class="subtitle">Remembering Amy Winehouse, 1983 - 2011</p>
+            
+            <!-- Quote Carousel -->
+            <div class="quote-carousel" id="quote-carousel">
+                <!-- Quotes will be loaded here dynamically -->
+            </div>
+            
+            <!-- Social Links -->
+            <div class="social-links">
+                <a href="https://www.instagram.com/amywinehouse/?hl=en" target="_blank">Instagram</a>
+                <a href="https://twitter.com/amywinehouse?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a>
+                <a href="https://tiktok.com/@amywinehouse" target="_blank">TikTok</a>
+            </div>
         </div>
     </div>
 
@@ -253,7 +301,7 @@
             const menu = document.getElementById('menu');
 
             hamburger.addEventListener('click', function(e) {
-                e.stopPropagation(); // Prevent event bubbling
+                e.stopPropagation();
                 this.classList.toggle('active');
                 menu.classList.toggle('active');
             });
@@ -276,6 +324,58 @@
                     menu.classList.remove('active');
                 });
             });
+
+            // Load quotes from external file
+            fetch('https://recfr.xyz/quotes.txt')
+                .then(response => response.text())
+                .then(text => {
+                    const quotes = text.split('\n').filter(quote => quote.trim() !== '');
+                    const carousel = document.getElementById('quote-carousel');
+                    
+                    // Create quote elements
+                    quotes.forEach((quote, index) => {
+                        const quoteElement = document.createElement('div');
+                        quoteElement.className = 'quote';
+                        quoteElement.textContent = `"${quote.trim()}"`;
+                        if (index === 0) quoteElement.classList.add('active');
+                        carousel.appendChild(quoteElement);
+                    });
+                    
+                    // Rotate quotes every 8 seconds
+                    let currentIndex = 0;
+                    setInterval(() => {
+                        const quotes = document.querySelectorAll('.quote');
+                        quotes[currentIndex].classList.remove('active');
+                        currentIndex = (currentIndex + 1) % quotes.length;
+                        quotes[currentIndex].classList.add('active');
+                    }, 8000);
+                })
+                .catch(error => {
+                    console.error('Error loading quotes:', error);
+                    // Fallback quotes
+                    const fallbackQuotes = [
+                        "I don't write songs because I want to; I write songs because I have to.",
+                        "I'm a true romantic. I'm a fool for love.",
+                        "I'm not a girl trying to be a star. I'm just a girl that sings."
+                    ];
+                    const carousel = document.getElementById('quote-carousel');
+                    fallbackQuotes.forEach((quote, index) => {
+                        const quoteElement = document.createElement('div');
+                        quoteElement.className = 'quote';
+                        quoteElement.textContent = `"${quote}"`;
+                        if (index === 0) quoteElement.classList.add('active');
+                        carousel.appendChild(quoteElement);
+                    });
+                    
+                    // Rotate fallback quotes
+                    let currentIndex = 0;
+                    setInterval(() => {
+                        const quotes = document.querySelectorAll('.quote');
+                        quotes[currentIndex].classList.remove('active');
+                        currentIndex = (currentIndex + 1) % quotes.length;
+                        quotes[currentIndex].classList.add('active');
+                    }, 8000);
+                });
         });
     </script>
 </body>
