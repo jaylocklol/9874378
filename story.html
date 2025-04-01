@@ -55,6 +55,97 @@
             border-radius: 2px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
+
+        /* Navigation Styles */
+        .nav-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .hamburger {
+            width: 30px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 2px;
+            background-color: #f8f8f8;
+            transition: all 0.3s ease;
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            border-left: 1px solid #555;
+            transition: right 0.3s ease;
+            padding: 80px 20px 20px;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .menu.active {
+            right: 0;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu li {
+            margin-bottom: 15px;
+        }
+
+        .menu a {
+            color: #f8f8f8;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid transparent;
+        }
+
+        .menu a:hover {
+            color: #ccc;
+            border-bottom: 1px solid #777;
+        }
+
+        /* Hamburger animation */
+        .hamburger.active .hamburger-line:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active .hamburger-line:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* Close button positioning */
+        .hamburger.active {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+        }
         
         h1 {
             font-size: 3rem;
@@ -144,13 +235,26 @@
         </video>
     </div>
 
-    <!-- Navigation would go here (same as your main page) -->
+    <!-- Navigation -->
+    <div class="nav-container">
+        <div class="hamburger" id="hamburger">
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+            <div class="hamburger-line"></div>
+        </div>
+        <div class="menu" id="menu">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/story">Her Story</a></li>
+            </ul>
+        </div>
+    </div>
     
     <div class="content">
         <div class="story-container">
             <h1>Amy's Story</h1>
             
-            <img src="https://upload.wikimedia.org/wikipedia/en/4/4f/Amy_Winehouse_-_Frank.png" alt="Frank Album Cover" class="album-cover">
+            <img src="https://i.discogs.com/TZvJorxWXNGFiIszLsopFvglgBX4gUw8YWAIBH6JPHY/rs:fit/g:sm/q:90/h:598/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTcxNjAx/OS0xNzQzMzIxMjA4/LTg2NDUuanBlZw.jpeg" alt="Frank Album Cover" class="album-cover">
             
             <h2><span class="years">1983-2006</span> Early Life & Career Beginnings</h2>
             
@@ -159,18 +263,22 @@
             <p>Even at age fourteen, Amy had a breathtakingly unique set of vocals that would propel her into stardom. By age nineteen, she had signed with Simon Fuller's management company 19 Management. Soon after, she was scouted by Island Record's A&R representative Darcus Beese and signed over to Island Records.</p>
             
             <div class="quote">
-                "I believe you only get to be in real love once."
+                "I'm a realist and a dreamer."
             </div>
             
             <p>In less than a year, after working closely alongside legendary music producer Salaam Remi, Amy released her debut studio album <span class="highlight">Frank</span>. The album was praised for its jazz-influenced sound, and earned a nomination for Album of the Year at the 2004 Mercury Music Prize Awards. It rolled out some of Amy's most notable singles, including "Fuck Me Pumps" and "Stronger Than Me," the latter of which winning Amy her first Ivor Novello Award in 2004.</p>
             
             <h2><span class="years">2006-2008</span> Back to Black & Global Fame</h2>
             
-            <img src="https://upload.wikimedia.org/wikipedia/en/2/27/Back_to_Black_%28Amy_Winehouse_album_-_cover_art%29.jpg" alt="Back to Black Album Cover" class="album-cover">
+            <img src="https://i.discogs.com/syRCX8NaLwK2SMk8X6TVU_DWc8RRqE4b-tebAQ6kVH4/rs:fit/g:sm/q:90/h:600/w:600/czM6Ly9kaXNjb2dz/LWRhdGFiYXNlLWlt/YWdlcy9SLTgyNTQz/OC0xNjE3ODE0NDI2/LTU1MjUuanBlZw.jpeg" alt="Back to Black Album Cover" class="album-cover">
             
             <p>Three years after Frank on October 27, 2006, Amy released her sophomore and final studio album <span class="highlight">Back to Black</span>. The album narrated the ups and downs of Amy's personal life, most specifically the turmoils she faced with her partner Blake Fielder-Civil.</p>
             
             <p>Back to Black saw Amy branch out in terms of genre and production while working with fellow English producer Mark Ronson, who produced five of the eleven tracks featured on the album. Its lead single, "Rehab," solidified itself as Amy's staple track, detailing the conversation she had with her management after fears her drinking habits were causing her too much damage.</p>
+            
+            <div class="quote">
+                "I believe you only get to be in real love once."
+            </div>
             
             <p>The album's title track "Back to Black" was released as another single a few months after "Rehab" and unfolded the dark moments that Amy faced after her relationship with Fielder-Civil came to a halt. Despite the album's immense popularity and four Grammy Award wins, the attention it received, coupled with the incessant touring of the album and pressure placed on her personal life, visibly plunged Amy into her darkest hours that quickly lead to her untimely demise.</p>
             
@@ -180,13 +288,13 @@
             
             <p>Their tumultuous relationship became extremely public, and a heavy spotlight was shone over the two wherever they went. Both Amy and Blake already suffered from substance abuse, but many fans noticed Amy take a turn for the worst during her relationship with Blake. Her addictions became so bad that in August 2007, she had to be hospitalised after a heavy binge of copious amounts of hard drug intake, including cocaine, ecstasy, and ketamine. The two eventually divorced in 2009, but it was visible that Amy had never emotionally recovered.</p>
             
-            <h2><span class="years">2011</span> Legacy</h2>
-            
-            <p>On July 23, 2011, at just age 27, Amy tragically passed away from alcohol poisoning in her London flat. On the one year anniversary of her passing, it was revealed by Billboard that almost a million copies of her two albums had been purchased since her death.</p>
-            
             <div class="quote">
                 "I don't care what people think about me. Never did, never will. Life is too short to be worrying about that shit."
             </div>
+            
+            <h2><span class="years">2011</span> Legacy</h2>
+            
+            <p>On July 23, 2011, at just age 27, Amy tragically passed away from alcohol poisoning in her London flat. On the one year anniversary of her passing, it was revealed by Billboard that almost a million copies of her two albums had been purchased since her death.</p>
             
             <p>On September 14, 2011, what would have been her 28th birthday, a foundation in her name was set up by her family to provide support for those struggling from addiction.</p>
             
@@ -195,7 +303,7 @@
     </div>
 
     <script>
-        // Same video background script as your main page
+        // Video background and menu functionality
         document.addEventListener('DOMContentLoaded', function() {
             const video = document.querySelector('video');
             video.play().catch(e => {
@@ -204,6 +312,35 @@
             });
             video.addEventListener('pause', function() {
                 this.play();
+            });
+
+            // Hamburger menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const menu = document.getElementById('menu');
+
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                menu.classList.toggle('active');
+            });
+
+            // Close menu when clicking anywhere outside
+            document.addEventListener('click', function(e) {
+                if (menu.classList.contains('active') && 
+                    !menu.contains(e.target) && 
+                    e.target !== hamburger) {
+                    hamburger.classList.remove('active');
+                    menu.classList.remove('active');
+                }
+            });
+
+            // Close menu when clicking on a link
+            const menuLinks = document.querySelectorAll('.menu a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    menu.classList.remove('active');
+                });
             });
         });
     </script>
