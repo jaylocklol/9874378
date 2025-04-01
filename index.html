@@ -98,6 +98,7 @@
             justify-content: space-between;
             cursor: pointer;
             z-index: 1001;
+            position: relative;
         }
 
         .hamburger-line {
@@ -118,6 +119,7 @@
             transition: right 0.3s ease;
             padding: 80px 20px 20px;
             box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
         }
 
         .menu.active {
@@ -164,6 +166,13 @@
             transform: translateY(-9px) rotate(-45deg);
         }
 
+        /* Close button positioning */
+        .hamburger.active {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -200,7 +209,11 @@
         <div class="menu" id="menu">
             <ul>
                 <li><a href="/">Home</a></li>
+                <li><a href="/biography">Biography</a></li>
+                <li><a href="/discography">Discography</a></li>
                 <li><a href="/gallery">Gallery</a></li>
+                <li><a href="/legacy">Legacy</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
         </div>
     </div>
@@ -239,9 +252,20 @@
             const hamburger = document.getElementById('hamburger');
             const menu = document.getElementById('menu');
 
-            hamburger.addEventListener('click', function() {
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent event bubbling
                 this.classList.toggle('active');
                 menu.classList.toggle('active');
+            });
+
+            // Close menu when clicking anywhere outside
+            document.addEventListener('click', function(e) {
+                if (menu.classList.contains('active') && 
+                    !menu.contains(e.target) && 
+                    e.target !== hamburger) {
+                    hamburger.classList.remove('active');
+                    menu.classList.remove('active');
+                }
             });
 
             // Close menu when clicking on a link
